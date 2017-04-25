@@ -57,7 +57,7 @@ public class PokerHub extends Hub {
 				resetOutput();
 				sendToAll(HubPokerTable);
 				break;
-			case Leave:			
+			case Leave:
 				HubPokerTable.RemovePlayerFromTable(actPlayer);
 				resetOutput();
 				sendToAll(HubPokerTable);
@@ -69,29 +69,50 @@ public class PokerHub extends Hub {
 			case StartGame:
 				// Get the rule from the Action object.
 				Rule rle = new Rule(act.geteGame());
-				
-				//TODO Lab #5 - If neither player has 'the button', pick a random player
-				//		and assign the button.				
 
-				//TODO Lab #5 - Start the new instance of GamePlay
-								
-				// Add Players to Game
-				
-				// Set the order of players
-				
-
+				// TODO Lab #5 - If neither player has 'the button', pick a
+				// random player
+				// and assign the button.
+				HubGamePlay = new GamePlay(rle, act.getPlayer().getPlayerID());
+				Iterator it = HubPokerTable.getHmPlayer().entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					Player p = (Player) pair.getValue();
+					HubGamePlay.addPlayerHandToGame(p);
+				}
+				HubGamePlay.setiActOrder(HubGamePlay.GetOrder(act.getPlayer().getiPlayerPosition()));
+				int pos = HubGamePlay.NextPosition(act.getPlayer().getiPlayerPosition(), HubGamePlay.getiActOrder());
+				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(pos));
+				HubGamePlay.setGameDeck(new Deck(rle.GetNumberOfJokers(), rle.GetWildCards()));
 
 			case Draw:
+				int c = HubGamePlay.geteDrawCountLast().getDrawNo() + 1;
+				CardDraw cd = (CardDraw) HubGamePlay.getRule().getHmCardDraw().get(c);
+				Player cPlayer = HubGamePlay.getPlayerNextToAct();
+				if (cd.getCardDestination() == eCardDestination.Community) {
 
-				//TODO Lab #5 -	Draw card(s) for each player in the game.
-				//TODO Lab #5 -	Make sure to set the correct visiblity
-				//TODO Lab #5 -	Make sure to account for community cards
+					for (int i = 0; i < cd.getCardCount().getCardCount(); i++) {
+						HubGamePlay.drawCard(cPlayer, cd.getCardDestination());
+					}
+				} else {
+					Iterator it2 = HubPokerTable.getHmPlayer().entrySet().iterator();
+					while (it2.hasNext()) {
+						Map.Entry pair = (Map.Entry) it2.next();
+						Player p = (Player) pair.getValue();
+						for (int i = 0; i < cd.getCardCount().getCardCount(); i++) {
+							HubGamePlay.drawCard(p, cd.getCardDestination());
+						}
+					}
 
-				//TODO Lab #5 -	Check to see if the game is over
+				}
+				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(cPlayer.getiPlayerPosition()));
+				HubGamePlay.seteDrawCountLast(eDrawCount.geteDrawCount(c));
+
+				// TODO Lab #5 - Check to see if the game is over
 				HubGamePlay.isGameOver();
-				
+
 				resetOutput();
-				//	Send the state of the gameplay back to the clients
+				// Send the state of the gameplay back to the clients
 				sendToAll(HubGamePlay);
 				break;
 			case ScoreGame:
@@ -101,7 +122,7 @@ public class PokerHub extends Hub {
 				sendToAll(HubGamePlay);
 				break;
 			}
-			
+
 		}
 
 	}

@@ -219,7 +219,13 @@ public class PokerTableController implements Initializable {
 	}
 
 	public void Handle_GameState(GamePlay HubPokerGame) {
-
+		// TODO Lab #5 - Make sure to set the correct visiblity
+		//get last draw count, after that read every draw count from 1 to current draw count
+		//then, if destination is community, get how many cards are in the community hand 
+		//do geticardnmbr call BuildImage using that number
+		//if destination is a player, check if that player you 
+		//if you make it visible, if not you not visible (facedown, BuildImage based on card_back.png)
+		//do this for both players
 	}
 
 	private ImageView BuildImage(int iCardNbr) {
