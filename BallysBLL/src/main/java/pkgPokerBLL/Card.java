@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import pkgPokerEnum.eRank;
 import pkgPokerEnum.eSuit;
-
+//j
 public class Card implements Comparable {
 
 	private eRank eRank;
