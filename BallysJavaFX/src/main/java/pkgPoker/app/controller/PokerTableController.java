@@ -1,17 +1,14 @@
 package pkgPoker.app.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -22,12 +19,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import pkgPoker.app.MainApp;
-import pkgPokerEnum.eAction;
-import pkgPokerEnum.eGame;
 import pkgPokerBLL.Action;
 import pkgPokerBLL.GamePlay;
 import pkgPokerBLL.Player;
 import pkgPokerBLL.Table;
+import pkgPokerEnum.eAction;
+import pkgPokerEnum.eGame;
 
 public class PokerTableController implements Initializable {
 
@@ -100,7 +97,7 @@ public class PokerTableController implements Initializable {
 	public void GetGameState() {
 	}
 
-	// TODO: Lab #4 - Complete (fix) setiPlayerPosition
+
 	public void btnSitLeave_Click(ActionEvent event) {
 
 		ToggleButton btn = (ToggleButton) event.getSource();
@@ -219,13 +216,9 @@ public class PokerTableController implements Initializable {
 	}
 
 	public void Handle_GameState(GamePlay HubPokerGame) {
-		// TODO Lab #5 - Make sure to set the correct visiblity
-		//get last draw count, after that read every draw count from 1 to current draw count
-		//then, if destination is community, get how many cards are in the community hand 
-		//do geticardnmbr call BuildImage using that number
-		//if destination is a player, check if that player you 
-		//if you make it visible, if not you not visible (facedown, BuildImage based on card_back.png)
-		//do this for both players
+		
+		
+		
 	}
 
 	private ImageView BuildImage(int iCardNbr) {

@@ -70,9 +70,7 @@ public class PokerHub extends Hub {
 				// Get the rule from the Action object.
 				Rule rle = new Rule(act.geteGame());
 
-				// TODO Lab #5 - If neither player has 'the button', pick a
-				// random player
-				// and assign the button.
+			
 				HubGamePlay = new GamePlay(rle, act.getPlayer().getPlayerID());
 				Iterator it = HubPokerTable.getHmPlayer().entrySet().iterator();
 				while (it.hasNext()) {
@@ -108,7 +106,7 @@ public class PokerHub extends Hub {
 				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(cPlayer.getiPlayerPosition()));
 				HubGamePlay.seteDrawCountLast(eDrawCount.geteDrawCount(c));
 
-				// TODO Lab #5 - Check to see if the game is over
+				
 				HubGamePlay.isGameOver();
 
 				resetOutput();
